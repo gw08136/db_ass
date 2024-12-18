@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>대기 중인 주문</title>
+</head>
+<body>
+    <h1>대기 중인 주문</h1>
+    <p>종목명: <%= 종목명 %></p>
+    <p>주문 수량: <%= remainingQty %> 주</p>
+    <p>현재 매도 주문이 없어 주문이 대기 중입니다.</p>
+
+    <form action="/cancelOrder" method="POST" style="display:inline;">
+        <input type="hidden" name="종목명" value="<%= 종목명 %>">
+        <button type="submit">주문 취소</button>
+    </form>
+    
+    <button onclick="window.history.back()">뒤로 가기</button>
+</body>
+</html>

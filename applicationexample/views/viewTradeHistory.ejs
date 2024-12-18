@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>거래 내역 현황</title>
+    <style>
+        .stocks-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        .stock-item {
+            display: flex;
+            gap: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            justify-content: space-between; /* 가로 정렬 */
+            width: 100%;
+            max-width: 800px; /* 카드 최대 너비 */
+        }
+        .transaction-detail {
+            text-align: center;
+            flex: 1; /* 각 항목의 너비를 동일하게 */
+        }
+    </style>
+</head>
+<body>
+    <h1>거래 내역 조회</h1>
+    <div class="stocks-container">
+        <div class="search-container">
+            <form action="/viewTradeHistory" method="get">
+                <input type="text" name="query" placeholder="종목명 검색" value="<%= searchQuery %>">
+                <label for="startDate">시작 날짜:</label>
+                <input type="date" id="startDate" name="startDate" value="<%= startDate %>">
+                <label for="endDate">끝 날짜:</label>
+                <input type="date" id="endDate" name="endDate" value="<%= endDate %>">
+                <button type="submit">검색</button>
+            </form>
+        </div>
+        <div class="transactions-container">
+            <% if (transactions.length > 0) { %>
+                <% transactions.forEach(transaction => { %>
+                    <div class="stock-item">
+                        <div class="transaction-detail">거래ID: <%= transaction.거래ID %></div>
+                        <div class="transaction-detail">종목명: <%= transaction.종목명 %></div>
+                        <div class="transaction-detail">매수/매도: <%= transaction.매수매도 %></div>
+                        <div class="transaction-detail">거래 수량: <%= transaction.거래수량 %> 주</div>
+                        <div class="transaction-detail">거래 날짜 및 시간: <%= transaction.거래날짜및시간 %></div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>일치하는 거래 내역이 없습니다.</p>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="back-button-container">
+        <button onclick="history.back()">뒤로 가기</button>
+    </div>
+</body>
+</html>
+

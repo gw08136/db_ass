@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>보유 주식 현황</title>
+    <style>
+        .stocks-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        .stock-item {
+            display: flex;
+            gap: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px;
+        }
+        .stock-detail {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>보유 주식 현황</h1>
+    <div class="stocks-container">
+        <div class="search-container">
+            <form action="/viewPortfolio" method="get">
+                <input type="text" name="query" placeholder="종목명 검색" value="<%= searchQuery %>">
+                <button type="submit">검색</button>
+            </form>
+        </div>
+
+        <% if (stocks.length > 0) { %>
+            <% stocks.forEach((stock, index) => { %>
+                <div class="stock-item">
+                    <div class="stock-detail"> <%= index + 1 %> </div>
+                    <div class="stock-detail">종목명: <%= stock.종목명 %></div>
+                    <div class="stock-detail">매수가: <%= stock.매수가 %> 원</div>
+                    <div class="stock-detail">보유량: <%= stock.보유량 %> 주</div>
+                    <div class="stock-detail">거래가능수량: <%= stock.거래가능수량 %> 주</div>
+                    <div class="stock-detail">평가금액: <%= stock.평가금액 %> 원</div>
+                    <div class="stock-actions">
+                        <a href="/marketSell?종목명=<%= encodeURIComponent(stock.종목명) %>">
+                            <button type="button">매도</button>
+                        </a>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>일치하는 주식이 없습니다.</p>
+        <% } %>
+    </div>
+
+    <div class="back-button-container">
+        <button onclick="history.back()">뒤로 가기</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>시장가/지정가 매수</title>
+    <script>
+        function showLimitPriceField(show) {
+            document.getElementById('limitPriceField').style.display = show ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body>
+    <h1><%= stockName %> - 매수</h1>
+
+    <form id="buyForm" action="/order/marketBuy" method="POST">
+        <input type="hidden" name="종목명" value="<%= stockName %>">
+
+        <label>매수 유형:</label><br>
+        <input type="radio" id="marketBuy" name="주문방식" value="시장가" onclick="showLimitPriceField(false)" checked>
+        <label for="marketBuy">시장가 매수</label><br>
+        
+        <input type="radio" id="limitBuy" name="주문방식" value="지정가" onclick="showLimitPriceField(true)">
+        <label for="limitBuy">지정가 매수</label><br><br>
+
+        <div id="limitPriceField" style="display: none;">
+            <label for="지정가">지정가 (₩):</label>
+            <input type="number" id="지정가" name="지정가" min="1" step="0.01">
+        </div>
+
+        <br>
+        <label for="매수량">매수량:</label>
+        <input type="number" id="매수량" name="매수량" min="1" required><br><br>
+
+        <button type="submit">매수하기</button>
+    </form>
+
+    <button onclick="window.history.back()">뒤로 가기</button>
+</body>
+</html>

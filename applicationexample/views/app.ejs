@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>하은 증권</title>
+</head>
+<body>
+    <h1>하은 증권</h1>
+    <% if (!session.userID) { %>
+        <button id="login">로그인</button>
+        <button id="signup">회원가입</button>
+    <% } else { %>
+        <button id="logout">로그아웃</button>
+        <button id="deleteUser">회원탈퇴</button>
+        <button id="myinfo">내정보</button> 
+    <% } %>
+
+    <h2>주식 종목 리스트</h2>
+    <form action="/" method="GET">
+        <input type="text" name="search" placeholder="종목명을 입력하세요" value="<%= searchQuery || '' %>">
+        <button type="submit">검색</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>종목명</th>
+                <th>현재가</th>
+                <th>등락률</th>
+                <th>자세히</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (stocks.length > 0) { %>
+                <% stocks.forEach(stock => { %>
+                    <tr>
+                        <td><%= stock.종목명 %></td>
+                        <td><%= stock.현재가.toLocaleString() %> 원</td>
+                        <td><%= stock.등락률 %> %</td>
+                        <td>
+                            <a href="/stock?종목명=<%= encodeURIComponent(stock.종목명) %>">
+                                <button type="button">자세히 보기</button>
+                            </a>
+                            <% if (session.userID) { %>
+                                <a href="/marketBuy?종목명=<%= encodeURIComponent(stock.종목명) %>">
+                                    <button type="button">매수</button>
+                                </a>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4">일치하는 종목이 없습니다.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <h2>현재가 높은 순 주식 리스트</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>종목명</th>
+                <th>현재가</th>
+                <th>등락률</th>
+                <th>자세히</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% topStocks.forEach(stock => { %>
+                <tr>
+                    <td><%= stock.종목명 %></td>
+                    <td><%= stock.현재가.toLocaleString() %> 원</td>
+                    <td><%= stock.등락률 %> %</td>
+                    <td>
+                        <a href="/stock?종목명=<%= encodeURIComponent(stock.종목명) %>">
+                            <button type="button">자세히 보기</button>
+                        </a>
+                        <% if (session.userID) { %>
+                            <a href="/marketBuy?종목명=<%= encodeURIComponent(stock.종목명) %>">
+                                <button type="button">매수</button>
+                            </a>
+                            <% } %>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loginButton = document.getElementById("login");
+            const signupButton = document.getElementById("signup");
+            const logoutButton = document.getElementById("logout");
+            const deleteUserButton = document.getElementById("deleteUser");
+            const myinfoButton = document.getElementById("myinfo");
+
+            if (loginButton) {
+                loginButton.addEventListener('click', () => {
+                    window.location = '/login';
+                });
+            }
+
+            if (signupButton) {
+                signupButton.addEventListener('click', () => {
+                    window.location = '/signup';
+                });
+            }
+
+            if (logoutButton) {
+                logoutButton.addEventListener('click', () => {
+                    window.location = '/logout';
+                });
+            }
+
+            if (deleteUserButton) {
+                deleteUserButton.addEventListener('click', () => {
+                    window.location = '/deleteUser';
+                });
+            }
+
+            if (myinfoButton) {
+                myinfoButton.addEventListener('click', () => {
+                    window.location = '/myinfo';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

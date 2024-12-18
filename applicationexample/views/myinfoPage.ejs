@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in page</title>
+</head>
+<body>
+    
+    <h1>내정보</h1>
+    <form method = "post" id="userInfo">
+        <input type="hidden" name="action" value="홈">
+        <button type="home">홈</button>
+    </form>
+    <p>나의 잔액: <%= balance %> 원</p>
+    <form method = "post" id="userInfo">
+        <input type="hidden" name="action" value="로그아웃">
+        <button id="logout">로그아웃</button>
+    </form>
+    
+    <h2>예수금</h2>
+    <form method = "post" id="userInfo">
+        <input type="hidden" name="action" value="입금">
+        <input type="number" name="amount" placeholder="입금액을 입력하세요 " required>
+        <button type="submit">입금</button>
+    </form>
+    
+    <form method="post" id="userInfo">
+        <input type="hidden" name="action" value="출금">
+        <input type="number" name="amount" placeholder="출금액을 입력하세요" required>
+        <button type="submit">출금</button>
+    </form>
+
+    <h2>보유 주식 현황</h2>
+    <form method = "post" id="userInfo">
+        <input type="hidden" name="action" value="보유주식">
+        <button id="viewPortfolio">보유 주식 조회</button>
+    </form>
+
+    <h2>거래 내역</h2>
+    <form method = "post" id="userInfo">
+        <input type="hidden" name="action" value="거래내역">
+        <button id="viewTradeHistory">거래 내역 조회</button>
+    </form>
+
+    <script>
+        const homeButton = document.getElementById("home");
+        const logoutButton = document.getElementById("logout");
+        const depositButton = document.getElementById("myinfo");
+        const withdrawButton = document.getElementById("myinfo");
+        const viewPortfolioButton = document.getElementById("viewPortfolio");
+        const viewTradeHistory = document.getElementById("viewTradeHistory");
+        
+        loginButton.addEventListener('click', () => {
+            window.location = 'http://localhost:3000/logout';
+        });
+        depositButton.addEventListener('click', () => {
+            window.location = 'http://localhost:3000/myinfo';
+        });
+        withdrawButton.addEventListener('click', () => {
+            window.location = 'http://localhost:3000/myinfo';
+        });
+        viewPortfolioButton.addEventListener('click', () => {
+            window.location = 'http://localhost:3000/viewPortforlio';
+        });
+        viewPortfolioButton.addEventListener('click', () => {
+            window.location = 'http://localhost:3000/viewTradeHistory';
+        });
+    </script>
+
+</body>
+</html>

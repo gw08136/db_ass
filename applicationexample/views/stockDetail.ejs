@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title><%= stockName %> 상세 정보</title>
+</head>
+<body>
+    <h1><%= stockName %> 거래 내역</h1>
+
+    <form action="/stock/<%= stockName %>" method="GET">
+        <label for="startDate">시작 날짜:</label>
+        <input type="date" id="startDate" name="startDate" required>
+        <label for="endDate">종료 날짜:</label>
+        <input type="date" id="endDate" name="endDate" required>
+        <button type="submit">조회</button>
+        
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>매수/매도 구분</th>
+            <th>거래 가격</th>
+            <th>거래 수량</th>
+            <th>거래 날짜 및 시간</th>
+        </tr>
+        <% transactions.forEach(transaction => { %>
+            <tr>
+                <td><%= transaction.매수매도 %></td>
+                <td><%= transaction.거래가격 %></td>
+                <td><%= transaction.거래수량 %></td>
+                <td><%= transaction.거래날짜및시간 %></td>
+            </tr>
+        <% }); %>
+    </table>
+    
+    <h2>5단계 호가창</h2>
+    <table border="1">
+        <tr>
+            <th>호가 단계</th>
+            <th>매도 잔량</th>
+            <th>가격</th>
+            <th>매수 잔량</th>
+        </tr>
+        <% hogaData.forEach(row => { %>
+            <tr>
+                <td><%= row.호가단계 %></td>
+                <td><%= row.매도잔량 %></td>
+                <td><%= row.가격 %></td>
+                <td><%= row.매수잔량 %></td>
+            </tr>
+        <% }); %>
+    </table>
+
+    <div class="back-button-container">
+        <button onclick="history.back()">뒤로 가기</button>
+    </div>
+</body>
+</html>
